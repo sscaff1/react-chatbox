@@ -1,0 +1,23 @@
+ul.social-buttons li a {display:block;background-color:#222;height:40px;width:40px;border-radius:100%;font-size:20px;line-height:40px;color:#fff;outline:0;}
+
+ul.social-buttons li a .fa {color:#fff;}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+.chat-box {
+  height: 200px;
+  overflow-y: scroll;
+  border: 1px solid #D3D3D3;
+  margin-bottom:15px;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.message {
+  margin:0;
+  padding:0;
+}
