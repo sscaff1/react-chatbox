@@ -3,13 +3,6 @@ import {ChatBox} from './chat-box.jsx';
 import moment from 'moment';
 
 class InputBox extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      messages: []
-    }
-  }
-
   scrollBottom() {
     //scroll to the bottom of the chatbox
     $('#chat-box').animate({scrollTop: $('#chat-box')[0].scrollHeight}, 50);
@@ -17,10 +10,9 @@ class InputBox extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let currentMessages = this.state.messages;
     const user = this.refs.username.value;
     const newMessage = this.refs.chatValue.value;
-    currentMessages.push({
+    Meteor.call('insertMessage', {
       key: new Date().getTime(),
       user: user || 'Unknown User',
       time: moment().format('hh:mm A'),
@@ -30,27 +22,20 @@ class InputBox extends React.Component {
     //reset the chat value
     this.refs.chatValue.value = '';
     this.scrollBottom();
-    this.setState({
-      messages: currentMessages
-    });
   }
 
   handleFile(event) {
     event.preventDefault();
     let reader = new FileReader();
     const file = event.target.files[0];
-    let currentMessages = this.state.messages;
     const user = this.refs.username.value;
     reader.onloadend = () => {
-      currentMessages.push({
+      Meteor.call('insertMessage', {
         key: new Date().getTime(),
         user: user || 'Unknown User',
         time: moment().format('hh:mm A'),
         message: null,
         image: reader.result
-      });
-      this.setState({
-        messages: currentMessages
       });
     }
     reader.readAsDataURL(file);
@@ -61,7 +46,7 @@ class InputBox extends React.Component {
   render() {
     return (
       <div>
-        <ChatBox messages={this.state.messages} />
+        <ChatBox messages={this.props.messages} />
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
             <div className="input-group">
