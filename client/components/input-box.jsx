@@ -3,9 +3,13 @@ import {ChatBox} from './chat-box.jsx';
 import moment from 'moment';
 
 class InputBox extends React.Component {
-  scrollBottom() {
+  componentDidMount() {
+    this.scrollBottom(500);
+  }
+
+  scrollBottom(time) {
     //scroll to the bottom of the chatbox
-    $('#chat-box').animate({scrollTop: $('#chat-box')[0].scrollHeight}, 50);
+    $('#chat-box').animate({scrollTop: $('#chat-box')[0].scrollHeight}, time);
   }
 
   handleSubmit(event) {
@@ -21,7 +25,7 @@ class InputBox extends React.Component {
     });
     //reset the chat value
     this.refs.chatValue.value = '';
-    this.scrollBottom();
+    this.scrollBottom(50);
   }
 
   handleFile(event) {
@@ -40,7 +44,7 @@ class InputBox extends React.Component {
     }
     reader.readAsDataURL(file);
     $('#file-input').val('');
-    this.scrollBottom();
+    this.scrollBottom(50);
   }
 
   render() {
